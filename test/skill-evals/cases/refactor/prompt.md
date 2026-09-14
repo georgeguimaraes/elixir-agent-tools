@@ -1,0 +1,1 @@
+Extract the result-selection logic in `SkillEval.Recommendations.load/2` into a public `recommendations/1` function so a caller that already has a fetch result can reuse it. Have `load/2` use the new function. Preserve the existing behavior. Keep the change in `lib/` and run the existing tests.

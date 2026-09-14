@@ -1,0 +1,1 @@
+The requested public helper is absent in the seed. Hidden checks exercise the new API and preserve the original nil, error-tuple, malformed-value, and missing-field contracts. The reference extracts the existing case expression directly. This is a contract-preserving refactor task, not a preference test for case versus with syntax.

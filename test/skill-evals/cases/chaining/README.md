@@ -1,0 +1,3 @@
+The seed saves an export inside Repo.transact but discards the real Oban.insert error, so its public happy-path test passes. Hidden tests use an invalid priority to exercise a real Oban job changeset failure, verify the export write rolls back, reject invalid export input, and retain custom scheduling options. The reference propagates the enqueue error from the transaction callback. No dependency is mocked.
+
+Copy test_helper.exs to test/test_helper.exs. EVAL_DATABASE_URL must identify an isolated PostgreSQL database. The helper migrates Oban and creates exports before switching to manual sandbox ownership. Parent runner owns database creation. Stop the temporary cluster after the experiment.

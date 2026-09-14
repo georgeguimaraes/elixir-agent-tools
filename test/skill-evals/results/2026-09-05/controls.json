@@ -1,0 +1,122 @@
+[
+  {
+    "case": "refactor",
+    "reference": false,
+    "grade_exit": 2,
+    "tests": 5,
+    "failures": 3,
+    "protected_changes": [],
+    "passed": false,
+    "grade_seconds": 6.197
+  },
+  {
+    "case": "refactor",
+    "reference": true,
+    "grade_exit": 0,
+    "tests": 5,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.284
+  },
+  {
+    "case": "otp",
+    "reference": false,
+    "grade_exit": 2,
+    "tests": 4,
+    "failures": 3,
+    "protected_changes": [],
+    "passed": false,
+    "grade_seconds": 8.868
+  },
+  {
+    "case": "otp",
+    "reference": true,
+    "grade_exit": 0,
+    "tests": 4,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.738
+  },
+  {
+    "case": "sandbox",
+    "reference": false,
+    "grade_exit": 2,
+    "tests": 2,
+    "failures": 2,
+    "protected_changes": [],
+    "passed": false,
+    "grade_seconds": 6.484
+  },
+  {
+    "case": "sandbox",
+    "reference": true,
+    "grade_exit": 0,
+    "tests": 2,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.278
+  },
+  {
+    "case": "channel",
+    "reference": false,
+    "grade_exit": 2,
+    "tests": 3,
+    "failures": 2,
+    "protected_changes": [],
+    "passed": false,
+    "grade_seconds": 6.316
+  },
+  {
+    "case": "channel",
+    "reference": true,
+    "grade_exit": 0,
+    "tests": 3,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.295
+  },
+  {
+    "case": "polling",
+    "reference": false,
+    "grade_exit": 2,
+    "tests": 5,
+    "failures": 2,
+    "protected_changes": [],
+    "passed": false,
+    "grade_seconds": 6.255
+  },
+  {
+    "case": "polling",
+    "reference": true,
+    "grade_exit": 0,
+    "tests": 5,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.254
+  },
+  {
+    "case": "chaining",
+    "reference": false,
+    "grade_exit": 2,
+    "tests": 4,
+    "failures": 1,
+    "protected_changes": [],
+    "passed": false,
+    "grade_seconds": 6.484
+  },
+  {
+    "case": "chaining",
+    "reference": true,
+    "grade_exit": 0,
+    "tests": 4,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.359
+  }
+]

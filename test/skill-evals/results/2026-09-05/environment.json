@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-05",
+  "repository_commit": "5e572b1a6e6df28a1dd5af292557d37387a892ba",
+  "codex": "0.153.4",
+  "elixir": "1.20.1-otp-28",
+  "erlang": "28.5.0.2",
+  "postgresql": "17.11",
+  "macOS": "26.6.1",
+  "runtime_probe": "/private/tmp/astra-skill-eval/runtime-probe.jsonl",
+  "original_runs": "/private/tmp/astra-skill-eval/runs-pinned",
+  "retry_runs": "/private/tmp/astra-skill-eval/runs-retries"
+}

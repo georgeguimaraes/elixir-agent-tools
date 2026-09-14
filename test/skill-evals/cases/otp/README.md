@@ -1,0 +1,3 @@
+This case runs the actual GenServer and real user-supplied functions. A work-started/release handshake checks status responsiveness and busy rejection without sleeps. Separate cases exercise an explicit exit and a raised exception, reporting to the original caller, keeping the original server PID alive, and accepting another run.
+
+The public success test should pass for both implementations. The seed should fail all three hidden tests. Replacing lib/work_server.ex with reference/work_server.ex should pass all four. The responsiveness deadline is 500ms after receiving the work-started message, not a comparison of execution times. Explicit cleanup releases blocked work even on assertion failure.

@@ -1,0 +1,30 @@
+{
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "repeats": 3,
+  "workers": 3,
+  "timeout_seconds": 240,
+  "shuffle_seed": 20260905,
+  "trials": [
+    [
+      "polling",
+      "pruned",
+      1
+    ],
+    [
+      "otp",
+      "pruned",
+      3
+    ],
+    [
+      "sandbox",
+      "baseline",
+      1
+    ]
+  ],
+  "controls": "/private/tmp/astra-skill-eval/controls-v4/controls.json",
+  "scope": "Loaded guidance, not skill discovery. Six selected audit-related tasks, no held-out generalization claim.",
+  "tools": "Codex shell, file editing, live web search. Personal plugins, skills, memories, and project-doc auto-loading disabled.",
+  "phase": "Separate retries of invalid original runs",
+  "original": "/private/tmp/astra-skill-eval/runs-pinned"
+}

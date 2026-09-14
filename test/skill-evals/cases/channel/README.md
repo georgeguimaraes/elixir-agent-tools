@@ -1,0 +1,3 @@
+This case exercises real Phoenix.Channel callbacks with a real Phoenix.Socket and Phoenix.Channel.push/3. A small serializer preserves the emitted Phoenix.Socket.Message for assertions. It tests callback behavior, not transport or channel-process integration.
+
+The public test checks initial authorized delivery. Hidden tests revoke permission, grant initially denied permission, and revoke/regrant while retaining the same topic and exact payload. Sends occur synchronously, so negative assertions need no sleeps. The seed should pass the public test and fail both hidden tests. Replacing lib/access_channel.ex with reference/access_channel.ex should pass all three.

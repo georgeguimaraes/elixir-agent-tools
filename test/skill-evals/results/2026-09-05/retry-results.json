@@ -1,0 +1,80 @@
+[
+  {
+    "case": "polling",
+    "condition": "pruned",
+    "repeat": 1,
+    "model": "gpt-6-astra",
+    "reasoning": "high",
+    "agent_exit": 0,
+    "agent_seconds": 78.767,
+    "tool_events": 8,
+    "usage": {
+      "input_tokens": 135379,
+      "cached_input_tokens": 110976,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1547,
+      "reasoning_output_tokens": 182
+    },
+    "errors": [],
+    "guidance_bytes": 2830,
+    "grade_exit": 0,
+    "tests": 5,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.201,
+    "valid_run": true
+  },
+  {
+    "case": "otp",
+    "condition": "pruned",
+    "repeat": 3,
+    "model": "gpt-6-astra",
+    "reasoning": "high",
+    "agent_exit": 0,
+    "agent_seconds": 104.678,
+    "tool_events": 8,
+    "usage": {
+      "input_tokens": 107582,
+      "cached_input_tokens": 85760,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 2382,
+      "reasoning_output_tokens": 448
+    },
+    "errors": [],
+    "guidance_bytes": 2233,
+    "grade_exit": 0,
+    "tests": 4,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.214,
+    "valid_run": true
+  },
+  {
+    "case": "sandbox",
+    "condition": "baseline",
+    "repeat": 1,
+    "model": "gpt-6-astra",
+    "reasoning": "high",
+    "agent_exit": 0,
+    "agent_seconds": 68.357,
+    "tool_events": 7,
+    "usage": {
+      "input_tokens": 102520,
+      "cached_input_tokens": 91136,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1061,
+      "reasoning_output_tokens": 131
+    },
+    "errors": [],
+    "guidance_bytes": 0,
+    "grade_exit": 0,
+    "tests": 2,
+    "failures": 0,
+    "protected_changes": [],
+    "passed": true,
+    "grade_seconds": 6.383,
+    "valid_run": true
+  }
+]

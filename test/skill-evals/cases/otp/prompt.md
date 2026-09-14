@@ -1,0 +1,3 @@
+`SkillEvals.WorkServer` runs user-supplied zero-arity work functions. Slow work currently makes it unresponsive, and a failed work function takes the server down. Update it so `status/1` stays responsive while work runs, concurrent `run/2` calls return `{:error, :busy}`, and the original caller receives `{:ok, value}` on success or `{:error, {:exit, reason}}` if the work process fails. After either outcome, the server must accept another run. Preserve `start_link/1`, `run/2`, and `status/1`. The status values are `:idle` and `:busy`.
+
+Work in `lib/work_server.ex`. Run the available tests before finishing.

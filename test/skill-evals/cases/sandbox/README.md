@@ -1,0 +1,3 @@
+The seed starts a real GenServer without giving it access to the caller's sandbox connection. The visible test should fail with an ownership error. The reference grants an allowance. The hidden check overlaps two independent transaction owners and verifies each Reader executes in its own process and sees only its owner's rows. It rejects fixes that switch all tests to a shared connection or query in the caller.
+
+Copy test_helper.exs to test/test_helper.exs. EVAL_DATABASE_URL must identify an isolated PostgreSQL database. No external services beyond PostgreSQL are required. Parent runner owns database creation and deletion.

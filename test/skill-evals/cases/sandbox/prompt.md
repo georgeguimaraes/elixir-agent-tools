@@ -1,0 +1,1 @@
+The new Reader integration tests fail when a Reader tries to query records inserted by its test. Fix `SkillEval.TestSupport.start_reader/0` so each test can exercise the real GenServer against its own test data. Keep the Reader as a separate process and keep concurrent tests isolated. Preserve the existing return value and caller-managed process lifecycle. Run the public tests.

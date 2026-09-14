@@ -2,96 +2,45 @@
 
 Elixir development guidance for coding agents, with optional Mix checks and Expert language server integration.
 
-Install the `elixir-dev` plugin for five skills covering language idioms, Phoenix interfaces, Ecto persistence, OTP processes, and Oban jobs. Add the tooling plugins when you want automatic checks or code navigation.
+Five skills covering language idioms, Phoenix interfaces, Ecto persistence, OTP processes, and Oban jobs. Install them with `npx skills`, then add optional plugins when you want automatic checks or code navigation.
 
-## Choose your plugins
-
-| Plugin | What you get | Requirements |
-|--------|--------------|--------------|
-| [elixir-dev](#elixir-skills) | Five skills that load when relevant to a task | A harness with Agent Skills support |
-| [mix-format](#mix-format) | Run `mix format` after edits to `.ex` and `.exs` files | Claude Code or Codex, Bash, Elixir/Mix, a Mix project |
-| [mix-compile](#mix-compile) | Compile with `--warnings-as-errors` after edits to `.ex` files | Claude Code or Codex, Bash, Elixir/Mix, a Mix project |
-| [mix-credo](#mix-credo) | Run Credo after edits to `.ex` and `.exs` files | Claude Code or Codex, Bash, Elixir/Mix, Credo in the project |
-| [elixir-lsp](#elixir-lsp) | Code navigation and diagnostics through Expert | Claude Code, Expert, Python 3 |
-
-The skills are Markdown instructions and need no local Elixir installation to load. Running the project's code still requires its normal development environment. The Mix hooks support macOS and Linux, including WSL on Windows. They use Bash 3.2+, standard Unix tools, and the OS file-lock utility: `lockf` on macOS or `flock` on Linux/WSL. JSON parsing is bundled, so the Mix hooks need no jq, Python, uv, or newer Elixir version.
+**These skills are small on purpose. Every instruction must change the agent's behavior.** Modern coding agents already know the basics. Their context should go toward your code and your problem. We keep only guidance that changes a decision or prevents a demonstrated mistake. If the agent would do the same thing without an instruction, that instruction doesn't belong here.
 
 ## Installation
 
-### Claude Code
+Install all five skills with the [Skills CLI](https://github.com/vercel-labs/skills) and choose your agent when prompted. Works with Codex, Claude Code, OpenCode, and other supported agents:
 
-Add the marketplace and install the skills:
+```bash
+npx skills add georgeguimaraes/elixir-agent-tools --skill '*'
+```
+
+Add `-g` to make the skills available across projects. Start a new session after installation. Mix checks and code navigation are [optional tools](#optional-tools) you can add later.
+
+<details>
+<summary>Alternative: native Claude Code or Codex plugin</summary>
+
+Install the same five skills as a plugin. Choose this or `npx skills` to avoid duplicate skills.
+
+### Claude Code
 
 ```bash
 claude plugin marketplace add georgeguimaraes/elixir-agent-tools
 claude plugin install elixir-dev@elixir-agent-tools
 ```
 
-Install any optional tools you want:
-
-```bash
-claude plugin install mix-format@elixir-agent-tools
-claude plugin install mix-compile@elixir-agent-tools
-claude plugin install mix-credo@elixir-agent-tools
-claude plugin install elixir-lsp@elixir-agent-tools
-```
-
-Both Claude Code and Codex use the marketplace ID `elixir-agent-tools` and the skills plugin name `elixir-dev`.
-
-### Codex plugin
-
-Register the marketplace from your terminal:
+### Codex
 
 ```bash
 codex plugin marketplace add georgeguimaraes/elixir-agent-tools
-```
-
-In Codex, open `/plugins`, select the **Elixir Agent Tools** marketplace, and install **Elixir Development**. You can also install directly from the terminal:
-
-```bash
 codex plugin add elixir-dev@elixir-agent-tools
 ```
 
-Start a new session to use the five bundled skills. The Codex plugin contains the same skill files as the Claude Code plugin.
+</details>
 
-Install any optional Mix checks you want:
+<details>
+<summary>Manual installation</summary>
 
-```bash
-codex plugin add mix-format@elixir-agent-tools
-codex plugin add mix-compile@elixir-agent-tools
-codex plugin add mix-credo@elixir-agent-tools
-```
-
-Use `/hooks` in Codex to review and trust the installed hook commands. Codex requires hook trust separately from plugin installation. See the [Codex hooks documentation](https://learn.chatgpt.com/docs/hooks). The Expert LSP plugin remains Claude Code only.
-
-To try unpublished changes from a local checkout, register that directory instead of the GitHub repository:
-
-```bash
-codex plugin marketplace add /path/to/elixir-agent-tools
-codex plugin add elixir-dev@elixir-agent-tools
-```
-
-### Codex and other agents with npx skills
-
-Use the [Skills CLI](https://github.com/vercel-labs/skills) to install all five skills into your current project for Codex:
-
-```bash
-npx skills add georgeguimaraes/elixir-agent-tools -a codex --skill '*'
-```
-
-Add `-g` to make them available across projects. To choose individual skills, replace `--skill '*'` with names such as `--skill phoenix ecto`. Use `-a opencode` for OpenCode or `-a claude-code` for a skills-only Claude Code installation.
-
-To preview the available skills without installing:
-
-```bash
-npx skills add georgeguimaraes/elixir-agent-tools --list
-```
-
-This installs standalone skill files. Choose either this method or the native plugin to avoid duplicate skills. Install Mix hooks through the native Claude Code or Codex plugin commands above. The LSP plugin uses Claude Code's plugin installation.
-
-### Manual skills installation
-
-Both [Codex](https://learn.chatgpt.com/docs/build-skills) and [OpenCode](https://opencode.ai/docs/skills/) discover personal skills under `~/.agents/skills`. Clone this repository into a persistent location and link each skill:
+For agents that discover skills under `~/.agents/skills`, clone this repository into a persistent location and link each skill:
 
 ```bash
 git clone https://github.com/georgeguimaraes/elixir-agent-tools.git "$HOME/.local/share/elixir-agent-tools"
@@ -103,7 +52,23 @@ done
 
 If a destination already exists, inspect it before replacing it. Start a new session after installation. Updating the clone updates the linked skills.
 
-For other harnesses with [Agent Skills support](https://agentskills.io), install the individual folders from `plugins/elixir-dev/skills/` in that harness's skill directory. Mix hooks are packaged for Claude Code and Codex. Other harnesses need an adapter for their edit events.
+For other agents with [Agent Skills support](https://agentskills.io), install the individual folders from `plugins/elixir-dev/skills/` in that agent's skill directory.
+
+</details>
+
+<details>
+<summary>Try a local checkout in Codex</summary>
+
+Register the local directory instead of the GitHub repository:
+
+```bash
+codex plugin marketplace add /path/to/elixir-agent-tools
+codex plugin add elixir-dev@elixir-agent-tools
+```
+
+Start a new session after installation.
+
+</details>
 
 ## Elixir skills
 
@@ -150,6 +115,58 @@ The skills draw on Elixir and Erlang documentation, framework guides, and talks 
 - [Saša Jurić - Elixir in Action](https://www.manning.com/books/elixir-in-action-third-edition)
 
 ## Optional tools
+
+These tools use native plugins. Add the marketplace for your agent below, then install any tools you want. The skills work without them.
+
+| Plugin | What you get | Requirements |
+|--------|--------------|--------------|
+| [mix-format](#mix-format) | Run `mix format` after edits to `.ex` and `.exs` files | Claude Code or Codex, Bash, Elixir/Mix, a Mix project |
+| [mix-compile](#mix-compile) | Compile with `--warnings-as-errors` after edits to `.ex` files | Claude Code or Codex, Bash, Elixir/Mix, a Mix project |
+| [mix-credo](#mix-credo) | Run Credo after edits to `.ex` and `.exs` files | Claude Code or Codex, Bash, Elixir/Mix, Credo in the project |
+| [elixir-lsp](#elixir-lsp) | Code navigation and diagnostics through Expert | Claude Code, Expert, Python 3 |
+
+<details>
+<summary>Install tools in Claude Code</summary>
+
+Add the marketplace once:
+
+```bash
+claude plugin marketplace add georgeguimaraes/elixir-agent-tools
+```
+
+Run only the commands for the tools you want:
+
+```bash
+claude plugin install mix-format@elixir-agent-tools
+claude plugin install mix-compile@elixir-agent-tools
+claude plugin install mix-credo@elixir-agent-tools
+claude plugin install elixir-lsp@elixir-agent-tools
+```
+
+</details>
+
+<details>
+<summary>Install tools in Codex</summary>
+
+Add the marketplace once:
+
+```bash
+codex plugin marketplace add georgeguimaraes/elixir-agent-tools
+```
+
+Run only the commands for the checks you want:
+
+```bash
+codex plugin add mix-format@elixir-agent-tools
+codex plugin add mix-compile@elixir-agent-tools
+codex plugin add mix-credo@elixir-agent-tools
+```
+
+Use `/hooks` in Codex to review and trust the installed hook commands. Codex requires hook trust separately from plugin installation. See the [Codex hooks documentation](https://learn.chatgpt.com/docs/hooks). The Expert LSP plugin remains Claude Code only.
+
+</details>
+
+The Mix hooks support macOS and Linux, including WSL on Windows. They use Bash 3.2+, standard Unix tools, and the OS file-lock utility: `lockf` on macOS or `flock` on Linux/WSL. JSON parsing is bundled, so the Mix hooks need no jq, Python, uv, or newer Elixir version.
 
 The three Mix plugins share a Bash runner and a bundled [JSON.sh](https://github.com/dominictarr/JSON.sh) parser. They handle Claude Code's `Edit`, `MultiEdit`, and `Write` events and Codex's `apply_patch` events, including patches spanning multiple files or projects. Shell commands that write files do not trigger these edit hooks.
 

@@ -18,14 +18,21 @@ Results from the completed screening and its three transport-error replacements 
 
 ## Running locally
 
-The runner currently targets macOS and uses copy-on-write `cp -cR`. It requires Codex, uv, unbuffer, PostgreSQL tools, and the Elixir/OTP versions in `project/.tool-versions`. `project/mix.lock` pins dependency versions. Public packages are sufficient, with no Oban Pro dependency or license required.
+The runner currently targets macOS and uses copy-on-write `cp -cR`. It requires Codex, unbuffer, perl, PostgreSQL tools, and the Elixir/OTP versions in `project/.tool-versions`. `project/mix.lock` pins dependency versions. Public packages are sufficient, with no Oban Pro dependency or license required.
 
 Prepare a temporary base project by copying `project/` to `/private/tmp/astra-skill-eval/base`, then run `unbuffer mix deps.get` and `MIX_ENV=test unbuffer mix compile` there. Use `HEX_HOME=/private/tmp/astra-skill-eval/hex` for an isolated package cache. Start a separate PostgreSQL cluster with role `skill_eval`, loopback address `127.0.0.1`, and port `55439`. The runner creates uniquely named databases inside that cluster. Do not point it at a production database server.
 
 ```sh
-uv run --no-project python test/skill-evals/run.py controls --output /private/tmp/astra-skill-eval/controls-v4
-uv run --no-project python test/skill-evals/run.py run --controls /private/tmp/astra-skill-eval/controls-v4/controls.json
+elixir test/skill-evals/run.exs controls --output /private/tmp/astra-skill-eval/controls-v4
+elixir test/skill-evals/run.exs run --controls /private/tmp/astra-skill-eval/controls-v4/controls.json
 ```
+
+Summarize a completed batch with `elixir test/skill-evals/summarize.exs --results <dir>/results.json --controls <dir>/controls.json --output <dir>`.
+
+The runner was ported from Python to Elixir after the September 5 batch. The original
+`run.py` is archived beside those results so that frozen run stays reproducible. The port
+is behaviour-for-behaviour except for trial shuffling, which uses Erlang's `:rand`, so the
+recorded seed produces a different but still deterministic order.
 
 Run outputs include exact prompts and condition text, model event logs and usage, submitted sources, hidden-check logs, per-run results, shuffled trial order, and input hashes. Resume completed trials with the same command and unchanged inputs. Interrupted trials without a result file require a fresh output directory or explicit recovery after inspecting their partial outputs.
 

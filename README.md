@@ -198,7 +198,7 @@ The wrapper works around Claude Code's handling of server-initiated LSP requests
 
 Edit the canonical runner and parser helpers under `scripts/mix-hooks/`, then run `bash scripts/sync-mix-hooks.sh` to bundle them into the three independently installable plugins. The bundled JSON.sh source and its MIT license live under `vendor/` in each copy.
 
-Run `bash test/verify-plugins.sh` to check package structure and bundle consistency. Run `uv run --no-project python test/test-mix-hooks.py` for behavioral tests with isolated plugin installations and fake Mix commands. Python is used only by development checks, not the Mix hooks.
+Run `bash test/verify-plugins.sh` to check package structure and bundle consistency. Run `elixir test/test_mix_hooks.exs` for behavioral tests with isolated plugin installations and fake Mix commands. The development checks need Bash, Elixir, and perl. They don't affect the Mix hooks themselves, which use Bash only.
 
 ## License
 
